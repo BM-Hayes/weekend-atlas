@@ -151,3 +151,9 @@ textarea {
     grid-template-rows: auto auto 1fr auto;
   }
 }
+.mapboxgl-map,
+.mapboxgl-canvas-container,
+.mapboxgl-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
