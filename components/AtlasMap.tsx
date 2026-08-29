@@ -24,11 +24,13 @@ export function AtlasMap({
   hub,
   selectedId,
   onSelect,
+  mapboxToken = "",
 }: {
   places: Place[];
   hub: HubId;
   selectedId: string | null;
   onSelect: (id: string) => void;
+  mapboxToken?: string;
 }) {
   const wrap = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 800, h: 700 });
@@ -142,6 +144,7 @@ export function AtlasMap({
         hub={hub}
         selectedId={selectedId}
         onSelect={onSelect}
+        token={mapboxToken}
       />
     </div>
   );
@@ -152,14 +155,15 @@ function MapboxOverlay({
   hub,
   selectedId,
   onSelect,
+  token,
 }: {
   places: Place[];
   hub: HubId;
   selectedId: string | null;
   onSelect: (id: string) => void;
+  token: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
   useEffect(() => {
     if (!token || !ref.current) return;
