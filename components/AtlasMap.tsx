@@ -60,7 +60,7 @@ export function AtlasMap({
       className="relative h-full min-h-[320px] overflow-hidden bg-[#d9c9a6]"
     >
       <svg
-        className="absolute inset-0 h-full w-full"
+        className={`absolute inset-0 h-full w-full ${mapboxToken ? "hidden" : ""}`}
         viewBox={`0 0 ${size.w} ${size.h}`}
         aria-hidden
       >
@@ -201,7 +201,10 @@ function MapboxOverlay({
           );
         });
       };
-      instance.on("load", paint);
+            instance.on("load", () => {
+        instance.resize();
+        paint();
+      });
     })();
 
     return () => {
