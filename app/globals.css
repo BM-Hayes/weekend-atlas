@@ -1,5 +1,5 @@
-@import "mapbox-gl/dist/mapbox-gl.css";
 @import "tailwindcss";
+@import "mapbox-gl/dist/mapbox-gl.css";
 
 :root {
   --ink: #1c1914;
@@ -72,48 +72,60 @@ textarea {
   padding: 0;
 }
 
+.map-pin {
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
 .pin-dot {
   width: 14px;
   height: 14px;
   border-radius: 50% 50% 50% 0;
   transform: rotate(-45deg);
   box-shadow: 0 2px 6px rgba(28, 25, 20, 0.28);
+  display: block;
 }
 
 .pin[data-kind="trail"] .pin-dot,
-.pin[data-kind="refuge"] .pin-dot {
+.pin[data-kind="refuge"] .pin-dot,
+.map-pin[data-kind="trail"] .pin-dot,
+.map-pin[data-kind="refuge"] .pin-dot {
   background: var(--pine);
 }
-.pin[data-kind="water"] .pin-dot {
+.pin[data-kind="water"] .pin-dot,
+.map-pin[data-kind="water"] .pin-dot {
   background: var(--water);
 }
-.pin[data-kind="garden"] .pin-dot {
+.pin[data-kind="garden"] .pin-dot,
+.map-pin[data-kind="garden"] .pin-dot {
   background: var(--moss);
 }
-.pin[data-kind="farm"] .pin-dot {
+.pin[data-kind="farm"] .pin-dot,
+.map-pin[data-kind="farm"] .pin-dot {
   background: var(--rust);
 }
 .pin[data-kind="market"] .pin-dot,
-.pin[data-kind="downtown"] .pin-dot {
+.pin[data-kind="downtown"] .pin-dot,
+.map-pin[data-kind="market"] .pin-dot,
+.map-pin[data-kind="downtown"] .pin-dot {
   background: var(--clay);
 }
-.pin[data-kind="museum"] .pin-dot {
+.pin[data-kind="museum"] .pin-dot,
+.map-pin[data-kind="museum"] .pin-dot {
   background: #5c4d3c;
 }
-.pin[data-kind="event"] .pin-dot {
+.pin[data-kind="event"] .pin-dot,
+.map-pin[data-kind="event"] .pin-dot {
   background: var(--gold);
 }
 
-.pin.is-active .pin-dot {
+.pin.is-active .pin-dot,
+.map-pin.is-active .pin-dot {
   width: 18px;
   height: 18px;
   outline: 3px solid var(--paper);
-}
-
-.ring {
-  border: 1px dashed rgba(44, 64, 51, 0.35);
-  border-radius: 50%;
-  pointer-events: none;
 }
 
 .badge {
@@ -140,20 +152,15 @@ textarea {
   color: var(--badge-unverified);
 }
 
-.mapboxgl-popup-content {
-  background: var(--paper) !important;
-  color: var(--ink);
-  font-family: inherit;
+.mapboxgl-map,
+.mapboxgl-canvas-container,
+.mapboxgl-canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 @media (max-width: 860px) {
   .atlas-shell {
     grid-template-rows: auto auto 1fr auto;
   }
-}
-.mapboxgl-map,
-.mapboxgl-canvas-container,
-.mapboxgl-canvas {
-  width: 100% !important;
-  height: 100% !important;
 }
