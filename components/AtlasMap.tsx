@@ -81,17 +81,16 @@ export function AtlasMap({
             {rings.map((r) => {
               const rad = milesToPx(r.miles, size.w);
               return (
-                <g key={r.min}>
-                  <circle
-                    cx={originPt.x}
-                    cy={originPt.y}
-                    r={rad}
-                    fill="none"
-                    stroke="#2c4033"
-                    strokeOpacity="0.28"
-                    strokeDasharray="5 6"
-                  />
-                </g>
+                <circle
+                  key={r.min}
+                  cx={originPt.x}
+                  cy={originPt.y}
+                  r={rad}
+                  fill="none"
+                  stroke="#2c4033"
+                  strokeOpacity="0.28"
+                  strokeDasharray="5 6"
+                />
               );
             })}
           </svg>
@@ -139,12 +138,8 @@ function MapboxOverlay({
   token: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<{
-    remove: () => void;
-    resize: () => void;
-    flyTo: (o: object) => void;
-  } | null>(null);
-  const markersRef = useRef<{ remove: () => void }[]>([]);
+  const mapRef = useRef<any>(null);
+  const markersRef = useRef<any[]>([]);
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
 
@@ -157,19 +152,17 @@ function MapboxOverlay({
       if (cancelled || !ref.current) return;
       mapboxgl.accessToken = token;
       const origin = HUBS[hub];
-      const instance = new mapboxgl.Map({
+      const map = new mapboxgl.Map({
         container: ref.current,
         style: "mapbox://styles/mapbox/light-v11",
         center: [origin.lng, origin.lat],
         zoom: 8.4,
         attributionControl: false,
       });
-      instance.addControl(new mapboxgl.AttributionControl({ compact: true }));
-      mapRef.current = instance;
-      const ready = () => {
-        instance.resize();
-      };
-      instance.on("load", ready);
+      map.addControl(new mapboxgl.AttributionControl({ compact: true }));
+      mapRef.current = map;
+      const ready = () => map.resize();
+      map.on("load", ready);
       requestAnimationFrame(ready);
     })();
 
@@ -183,12 +176,10 @@ function MapboxOverlay({
   }, [token]);
 
   useEffect(() => {
-    const instance = mapRef.current as
-      | { flyTo: (o: object) => void; loaded: () => boolean }
-      | null;
-    if (!instance) return;
+    const map = mapRef.current;
+    if (!map) return;
     const origin = HUBS[hub];
-    instance.flyTo({ center: [origin.lng, origin.lat], zoom: 8.4 });
+    map.flyTo({ center: [origin.lng, origin.lat], zoom: 8.4 });
   }, [hub]);
 
   useEffect(() => {
@@ -197,15 +188,12 @@ function MapboxOverlay({
 
     (async () => {
       const mapboxgl = (await import("mapbox-gl")).default;
-      const wait = async () => {
-        for (let i = 0; i < 40; i++) {
-          if (mapRef.current) return mapRef.current;
-          await new Promise((r) => setTimeout(r, 100));
-        }
-        return null;
-      };
-      const instance = await wait();
-      if (cancelled || !instance) return;
+      let map = mapRef.current;
+      for (let i = 0; i < 50 && !map; i++) {
+        await new Promise((r) => setTimeout(r, 100));
+        map = mapRef.current;
+      }
+      if (cancelled || !map) return;
 
       markersRef.current.forEach((m) => m.remove());
       markersRef.current = [];
@@ -213,13 +201,14 @@ function MapboxOverlay({
       places.forEach((p) => {
         const el = document.createElement("button");
         el.type = "button";
-        el.className = `pin${selectedId === p.id ? " is-active" : ""}`;
+        el.className = `map-pin${selectedId === p.id ? " is-active" : ""}`;
         el.dataset.kind = p.kind;
+        el.setAttribute("aria-label", p.name);
         el.innerHTML = `<span class="pin-dot"></span>`;
         el.onclick = () => onSelectRef.current(p.id);
         const marker = new mapboxgl.Marker({ element: el, anchor: "bottom" })
           .setLngLat([p.lng, p.lat])
-          .addTo(instance as never);
+          .addTo(map);
         markersRef.current.push(marker);
       });
     })();
