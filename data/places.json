@@ -1,0 +1,372 @@
+[
+  {
+    "id": "cheraw-state-park",
+    "name": "Cheraw State Park",
+    "kind": "trail",
+    "badge": "verified",
+    "lat": 34.6442,
+    "lng": -79.9261,
+    "city": "Cheraw",
+    "county": "Chesterfield",
+    "oneLiner": "Oldest SC state park. Longleaf, Lake Juniper, turkey oak going gold.",
+    "whyThisWeekend": "Park gates are open daily. Golf course stays closed through Oct 1 renovation — come for trails and the lake, not 18 holes.",
+    "hours": [
+      { "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], "open": "07:00", "close": "20:00", "note": "Oct hours 7a–8p; Nov–Feb 7a–6p" }
+    ],
+    "website": "https://southcarolinaparks.com/cheraw",
+    "source": "SC State Parks hours, Aug 2026",
+    "tags": ["free", "hike", "lake", "fall-color", "picnic"],
+    "driveMinutes": { "hartsville": 28, "florence": 48, "cheraw": 8 },
+    "fallWeight": 9
+  },
+  {
+    "id": "kalmia-gardens",
+    "name": "Kalmia Gardens",
+    "kind": "garden",
+    "badge": "verified",
+    "lat": 34.3689,
+    "lng": -80.0936,
+    "city": "Hartsville",
+    "county": "Darlington",
+    "oneLiner": "35 acres on Black Creek. Camellias loading. Quiet loop if you only have an hour.",
+    "whyThisWeekend": "The gardens stay open. Fall planting season is the point — not a festival weekend.",
+    "hours": [
+      { "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], "open": "08:00", "close": "17:00" }
+    ],
+    "website": "https://www.kalmiagardens.org",
+    "source": "Kalmia Gardens / Coker University",
+    "tags": ["free", "walk", "plants", "black-creek"],
+    "driveMinutes": { "hartsville": 6, "florence": 28, "cheraw": 32 },
+    "fallWeight": 8
+  },
+  {
+    "id": "lynches-river-park",
+    "name": "Lynches River County Park",
+    "kind": "trail",
+    "badge": "verified",
+    "lat": 33.9736,
+    "lng": -79.8214,
+    "city": "Coward",
+    "county": "Florence",
+    "oneLiner": "Canopy walk over cypress. 676 acres between Florence and Lake City.",
+    "whyThisWeekend": "Park 9a–sunset. Canopy walk and Discovery Center: Sat 9–5, Sun 1–5.",
+    "hours": [
+      { "days": ["tue", "wed", "thu", "fri", "sat"], "open": "09:00", "close": "17:00", "note": "Park grounds 9a–sunset" },
+      { "days": ["sun"], "open": "13:00", "close": "17:00", "note": "Canopy walk / EDC Sunday hours" }
+    ],
+    "website": "https://www.lynchesriverpark.com",
+    "source": "lynchesriverpark.com hours",
+    "tags": ["canopy-walk", "kayak", "kids", "river"],
+    "driveMinutes": { "hartsville": 42, "florence": 22, "cheraw": 62 },
+    "fallWeight": 8
+  },
+  {
+    "id": "mcleod-farms",
+    "name": "McLeod Farms",
+    "kind": "farm",
+    "badge": "operator",
+    "lat": 34.4347,
+    "lng": -80.2414,
+    "city": "McBee",
+    "county": "Chesterfield",
+    "oneLiner": "Working peach farm. Fall means corn maze, wagon, u-pick pumpkins.",
+    "whyThisWeekend": "Fall field days typically open early October. Market may be open; maze/patch is seasonal — confirm before you roll.",
+    "hours": [
+      { "days": ["sat"], "open": "09:00", "close": "17:00" },
+      { "days": ["sun"], "open": "13:00", "close": "17:00" },
+      { "days": ["tue", "wed", "thu", "fri"], "open": "13:00", "close": "17:00" }
+    ],
+    "season": { "start": "2026-10-03", "end": "2026-11-08", "label": "Fall field days usually early Oct–early Nov" },
+    "website": "https://www.macspride.com/fall",
+    "source": "McLeod Farms fall page (2025 dates used as pattern)",
+    "tags": ["pumpkin", "corn-maze", "wagon", "kids", "seasonal"],
+    "driveMinutes": { "hartsville": 16, "florence": 38, "cheraw": 38 },
+    "fallWeight": 10
+  },
+  {
+    "id": "pee-dee-farmers-market",
+    "name": "Pee Dee State Farmers Market",
+    "kind": "market",
+    "badge": "verified",
+    "lat": 34.2278,
+    "lng": -79.8095,
+    "city": "Florence",
+    "county": "Florence",
+    "oneLiner": "Produce sheds, plants, food. The region’s Saturday errand that still feels like going out.",
+    "whyThisWeekend": "Market runs through the weekend. Plant, Flower & Food Festival is Oct 2–4.",
+    "hours": [
+      { "days": ["mon", "tue", "wed", "thu", "fri", "sat"], "open": "08:00", "close": "18:00" },
+      { "days": ["sun"], "open": "10:00", "close": "17:00" }
+    ],
+    "website": "https://agriculture.sc.gov/find-local/farmers-markets/pee-dee-state-farmers-market/",
+    "source": "SCDA market listing",
+    "tags": ["produce", "plants", "free-entry", "saturday"],
+    "driveMinutes": { "hartsville": 24, "florence": 8, "cheraw": 44 },
+    "fallWeight": 7
+  },
+  {
+    "id": "plant-flower-fest",
+    "name": "Pee Dee Plant, Flower & Food Festival",
+    "kind": "event",
+    "badge": "verified",
+    "lat": 34.2278,
+    "lng": -79.8095,
+    "city": "Florence",
+    "county": "Florence",
+    "oneLiner": "SCDA’s fall plant festival on the market grounds. Mums, food, no mystery.",
+    "whyThisWeekend": "Set for Oct 2–4, 2026. Not this weekend unless you are looking at that first October weekend.",
+    "hours": [
+      { "days": ["fri", "sat"], "open": "08:00", "close": "18:00" },
+      { "days": ["sun"], "open": "10:00", "close": "17:00" }
+    ],
+    "season": { "start": "2026-10-02", "end": "2026-10-04", "label": "Oct 2–4, 2026" },
+    "website": "https://agriculture.sc.gov/find-local/farmers-markets/plant-and-flower-festivals/",
+    "source": "SC Department of Agriculture 2026 festival calendar",
+    "tags": ["festival", "plants", "food", "october"],
+    "driveMinutes": { "hartsville": 24, "florence": 8, "cheraw": 44 },
+    "fallWeight": 9
+  },
+  {
+    "id": "little-pee-dee-sp",
+    "name": "Little Pee Dee State Park",
+    "kind": "water",
+    "badge": "verified",
+    "lat": 34.3278,
+    "lng": -79.2717,
+    "city": "Dillon",
+    "county": "Dillon",
+    "oneLiner": "54-acre lake plus the Little Pee Dee. Paddle if the wind is down.",
+    "whyThisWeekend": "Day-use park is open. Pack the kayak — rentals are not the promise here.",
+    "hours": [
+      { "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], "open": "08:00", "close": "18:00" }
+    ],
+    "website": "https://southcarolinaparks.com/little-pee-dee",
+    "source": "SC State Parks",
+    "tags": ["paddle", "camp", "lake", "east"],
+    "driveMinutes": { "hartsville": 58, "florence": 36, "cheraw": 62 },
+    "fallWeight": 6
+  },
+  {
+    "id": "woods-bay",
+    "name": "Woods Bay State Park",
+    "kind": "trail",
+    "badge": "verified",
+    "lat": 33.9464,
+    "lng": -80.0256,
+    "city": "Olanta",
+    "county": "Sumter",
+    "oneLiner": "Carolina bay boardwalk. Alligators possible. Short, strange, worth the spur.",
+    "whyThisWeekend": "Boardwalk and picnic area are a half-day. Pair with Lynches River if you are already south.",
+    "hours": [
+      { "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], "open": "09:00", "close": "18:00" }
+    ],
+    "website": "https://southcarolinaparks.com/woods-bay",
+    "source": "SC State Parks",
+    "tags": ["boardwalk", "wildlife", "short-stop"],
+    "driveMinutes": { "hartsville": 36, "florence": 28, "cheraw": 58 },
+    "fallWeight": 6
+  },
+  {
+    "id": "carolina-sandhills-nwr",
+    "name": "Carolina Sandhills NWR",
+    "kind": "refuge",
+    "badge": "verified",
+    "lat": 34.5192,
+    "lng": -80.2267,
+    "city": "McBee",
+    "county": "Chesterfield",
+    "oneLiner": "Longleaf and red-cockaded woodpeckers. Auto tour + short walks.",
+    "whyThisWeekend": "Refuge roads are open daylight hours. Best cool-weather birding of the year starts now.",
+    "hours": [
+      { "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], "open": "07:00", "close": "19:00" }
+    ],
+    "website": "https://www.fws.gov/refuge/carolina-sandhills",
+    "source": "USFWS Carolina Sandhills",
+    "tags": ["birds", "auto-tour", "longleaf", "free"],
+    "driveMinutes": { "hartsville": 22, "florence": 44, "cheraw": 28 },
+    "fallWeight": 9
+  },
+  {
+    "id": "lee-state-park",
+    "name": "Lee State Park",
+    "kind": "trail",
+    "badge": "verified",
+    "lat": 34.2017,
+    "lng": -80.1831,
+    "city": "Bishopville",
+    "county": "Lee",
+    "oneLiner": "Floodplain forest on the Lynches. Horses and hikers share the flats.",
+    "whyThisWeekend": "Open daily. A west-side option if Hartsville is home base.",
+    "hours": [
+      { "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], "open": "09:00", "close": "18:00" }
+    ],
+    "website": "https://southcarolinaparks.com/lee",
+    "source": "SC State Parks",
+    "tags": ["hike", "horses", "river"],
+    "driveMinutes": { "hartsville": 22, "florence": 32, "cheraw": 48 },
+    "fallWeight": 5
+  },
+  {
+    "id": "florence-county-museum",
+    "name": "Florence County Museum",
+    "kind": "museum",
+    "badge": "verified",
+    "lat": 34.1972,
+    "lng": -79.7667,
+    "city": "Florence",
+    "county": "Florence",
+    "oneLiner": "William H. Johnson and the Pee Dee under one roof. Downtown, free.",
+    "whyThisWeekend": "Closed Sunday. Saturday is the weekend window.",
+    "hours": [
+      { "days": ["tue", "wed", "thu", "fri", "sat"], "open": "10:00", "close": "17:00" }
+    ],
+    "website": "https://www.flocomuseum.org",
+    "source": "Florence County Museum published hours",
+    "tags": ["free", "art", "history", "downtown"],
+    "driveMinutes": { "hartsville": 26, "florence": 5, "cheraw": 46 },
+    "fallWeight": 4
+  },
+  {
+    "id": "downtown-cheraw",
+    "name": "Downtown Cheraw",
+    "kind": "downtown",
+    "badge": "community",
+    "lat": 34.6974,
+    "lng": -79.8831,
+    "city": "Cheraw",
+    "county": "Chesterfield",
+    "oneLiner": "Town Green, brick storefronts, river just south. Walk first, drive second.",
+    "whyThisWeekend": "Always there. Pair with the state park if you only want one outing.",
+    "hours": [
+      { "days": ["thu", "fri", "sat"], "open": "10:00", "close": "17:00" },
+      { "days": ["sun"], "open": "12:00", "close": "16:00" }
+    ],
+    "website": "https://www.cheraw.com",
+    "source": "Town of Cheraw visitor notes",
+    "tags": ["walk", "shops", "river-town"],
+    "driveMinutes": { "hartsville": 30, "florence": 46, "cheraw": 3 },
+    "fallWeight": 5
+  },
+  {
+    "id": "downtown-hartsville",
+    "name": "Downtown Hartsville",
+    "kind": "downtown",
+    "badge": "community",
+    "lat": 34.3741,
+    "lng": -80.0734,
+    "city": "Hartsville",
+    "county": "Darlington",
+    "oneLiner": "Fifth Street grid. Coffee, a walk, then Kalmia. No itinerary required.",
+    "whyThisWeekend": "Saturday morning is the useful window. Sunday is thinner.",
+    "hours": [
+      { "days": ["thu", "fri", "sat"], "open": "08:00", "close": "17:00" }
+    ],
+    "website": "https://www.hartsvillesc.gov",
+    "source": "City of Hartsville",
+    "tags": ["walk", "coffee", "local"],
+    "driveMinutes": { "hartsville": 2, "florence": 26, "cheraw": 30 },
+    "fallWeight": 4
+  },
+  {
+    "id": "pride-pee-dee",
+    "name": "Pride in the Pee Dee",
+    "kind": "event",
+    "badge": "community",
+    "lat": 34.1959,
+    "lng": -79.7648,
+    "city": "Florence",
+    "county": "Florence",
+    "oneLiner": "City Center Market. Vendors, music, afternoon into evening.",
+    "whyThisWeekend": "On the calendar for Saturday, October 10, 2026. Not a recurring weekly.",
+    "hours": [
+      { "days": ["sat"], "open": "16:00", "close": "21:00" }
+    ],
+    "season": { "start": "2026-10-10", "end": "2026-10-10", "label": "Oct 10, 2026 · 4–9p" },
+    "website": "https://www.peedeeequality.org/pride-in-the-pee-dee",
+    "source": "Pee Dee Equality 2026 page",
+    "tags": ["festival", "downtown", "october"],
+    "driveMinutes": { "hartsville": 26, "florence": 4, "cheraw": 46 },
+    "fallWeight": 7
+  },
+  {
+    "id": "southern-500-weekend",
+    "name": "Darlington Raceway weekend",
+    "kind": "event",
+    "badge": "verified",
+    "lat": 34.2954,
+    "lng": -79.8756,
+    "city": "Darlington",
+    "county": "Darlington",
+    "oneLiner": "Lady in Black. Playoff opener. The Pee Dee fills up.",
+    "whyThisWeekend": "Cook Out Southern 500 weekend is Sept 5–6, 2026. Traffic is the feature.",
+    "hours": [
+      { "days": ["sat"], "open": "12:00", "close": "23:00" },
+      { "days": ["sun"], "open": "10:00", "close": "19:00" }
+    ],
+    "season": { "start": "2026-09-04", "end": "2026-09-06", "label": "Sept 5–6, 2026" },
+    "website": "https://www.darlingtonraceway.com",
+    "source": "Darlington Raceway / WMBF Aug 2026",
+    "tags": ["nascar", "september", "crowds"],
+    "driveMinutes": { "hartsville": 18, "florence": 14, "cheraw": 38 },
+    "fallWeight": 8
+  },
+  {
+    "id": "black-creek-heritage",
+    "name": "Black Creek Heritage Preserve",
+    "kind": "trail",
+    "badge": "unverified",
+    "lat": 34.4015,
+    "lng": -80.0122,
+    "city": "Hartsville",
+    "county": "Darlington",
+    "oneLiner": "Sandhills creek corridor. Little signage. Bring your own map sense.",
+    "whyThisWeekend": "Land is there. Hours and parking are not tightly published — treat as daylight only.",
+    "hours": [
+      { "days": ["sat", "sun"], "open": "07:00", "close": "18:00" }
+    ],
+    "source": "SCDNR heritage preserve list — hours not operator-confirmed",
+    "tags": ["hike", "undeveloped", "daylight"],
+    "driveMinutes": { "hartsville": 12, "florence": 32, "cheraw": 28 },
+    "fallWeight": 5
+  },
+  {
+    "id": "florence-after-five",
+    "name": "Florence After Five",
+    "kind": "event",
+    "badge": "community",
+    "lat": 34.1968,
+    "lng": -79.7655,
+    "city": "Florence",
+    "county": "Florence",
+    "oneLiner": "Downtown block party series. 16th season in 2026.",
+    "whyThisWeekend": "Recurring downtown series — check the current date on the city calendar before you go.",
+    "hours": [
+      { "days": ["fri"], "open": "17:00", "close": "21:00" }
+    ],
+    "season": { "start": "2026-04-01", "end": "2026-10-31", "label": "Seasonal Friday series" },
+    "website": "https://www.cityofflorence.com",
+    "source": "Pee Dee Tourism / City of Florence series listing",
+    "tags": ["music", "downtown", "friday"],
+    "driveMinutes": { "hartsville": 26, "florence": 4, "cheraw": 46 },
+    "fallWeight": 6
+  },
+  {
+    "id": "seaboard-park-cheraw",
+    "name": "Cheraw River access / Seaboard",
+    "kind": "water",
+    "badge": "community",
+    "lat": 34.689,
+    "lng": -79.876,
+    "city": "Cheraw",
+    "county": "Chesterfield",
+    "oneLiner": "Great Pee Dee at town’s edge. Sunset if the river is up and the bugs are down.",
+    "whyThisWeekend": "Public land, daylight. Not a programmed event.",
+    "hours": [
+      { "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], "open": "07:00", "close": "19:00" }
+    ],
+    "source": "Town riverfront / community reports",
+    "tags": ["river", "sunset", "free"],
+    "driveMinutes": { "hartsville": 32, "florence": 48, "cheraw": 5 },
+    "fallWeight": 6
+  }
+]
