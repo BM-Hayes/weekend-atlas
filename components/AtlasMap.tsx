@@ -213,6 +213,11 @@ function MapboxOverlay({
     };
   }, [token, hub, places, selectedId, onSelect]);
 
-  if (!token) return null;
-  return <div ref={ref} className="absolute inset-0 z-20" />;
+   if (!token) return null;
+  return (
+    <div
+      ref={ref}
+      className="absolute inset-0 z-20 h-full w-full min-h-[320px]"
+    />
+  );
 }
