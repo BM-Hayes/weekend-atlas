@@ -12,7 +12,13 @@ import type { HubId, Place } from "@/lib/types";
 
 const DRIVE_CAPS = [20, 35, 50, 90] as const;
 
-export function AtlasApp({ listings }: { listings: Place[] }) {
+export function AtlasApp({
+  listings,
+  mapboxToken = "",
+}: {
+  listings: Place[];
+  mapboxToken?: string;
+}) {
   const [hub, setHub] = useState<HubId>("hartsville");
   const [mode, setMode] = useState<ViewMode>("weekend");
   const [cap, setCap] = useState<(typeof DRIVE_CAPS)[number]>(50);
@@ -117,6 +123,7 @@ export function AtlasApp({ listings }: { listings: Place[] }) {
             hub={hub}
             selectedId={selectedId}
             onSelect={setSelectedId}
+            mapboxToken={mapboxToken}
           />
         </div>
         <div className="flex max-h-[46vh] min-h-0 flex-col overflow-hidden border-t border-[#cbbd9e] bg-[#f7f0e0] md:max-h-none md:border-t-0">
