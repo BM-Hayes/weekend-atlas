@@ -1,7 +1,7 @@
 import { AtlasApp } from "@/components/AtlasApp";
 import { getPublishedListings } from "@/lib/listings";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const listings = await getPublishedListings();
