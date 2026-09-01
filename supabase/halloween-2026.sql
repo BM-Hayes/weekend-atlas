@@ -1,0 +1,77 @@
+-- Weekend Atlas · Halloween 2026 seed (Pee Dee haunts)
+-- Run in Supabase SQL editor. Safe to re-run (upsert on slug).
+-- Live map reads published listings. Repo seed is backup only.
+
+insert into public.listings (
+  slug, name, kind, badge, lat, lng, city, county, region,
+  one_liner, why_this_weekend, hours, season_start, season_end, season_label,
+  website, source, tags,
+  drive_minutes_hartsville, drive_minutes_florence, drive_minutes_cheraw,
+  fall_weight, published
+) values
+  (
+    'scream-acres',
+    'Scream Acres',
+    'event',
+    'verified',
+    34.2148,
+    -80.2689,
+    'Bishopville',
+    'Lee',
+    'pee-dee',
+    'House from the 1880s, two-mile hayride, then a swamp walk. One ticket, three pieces.',
+    '2026 season: Sep 11–12, 18–19, 25–26, then every Fri–Sat in October, plus Oct 25 and Oct 30–31. Not open the first weekend of September.',
+    '[{"days":["fri","sat"],"open":"19:00","close":"01:00","note":"Gates typically 7p–1a; Oct 25 7p–10p; Oct 31 7p–12a"},{"days":["sun"],"open":"19:00","close":"22:00","note":"Sunday nights only on posted dates (Oct 25)"}]'::jsonb,
+    '2026-09-11'::date,
+    '2026-10-31'::date,
+    'Sep 11–Oct 31, 2026 · Fri–Sat nights',
+    'https://screamacreshauntedhouse.com/',
+    'screamacreshauntedhouse.com + SC Haunted Houses 2026 schedule',
+    ARRAY['halloween','haunt','hayride','swamp','seasonal','night']::text[],
+    26, 36, 50,
+    10, true
+  ),
+  (
+    'kreepy-hollow',
+    'Kreepy Hollow',
+    'event',
+    'community',
+    34.1639,
+    -80.3214,
+    'Bishopville',
+    'Lee',
+    'pee-dee',
+    'Bus ride, two-story house, then a hayride through Lucknow Bottom. Woods west of Bishopville.',
+    'Usually Fri–Sat nights from mid-September through early November. 2026 nights still move — use the operator page before you drive.',
+    '[{"days":["fri","sat"],"open":"19:30","close":"00:30","note":"Typical Fri–Sat 7:30p–12:30a"},{"days":["sun"],"open":"19:30","close":"22:30","note":"Sunday nights when posted"}]'::jsonb,
+    '2026-09-12'::date,
+    '2026-11-01'::date,
+    'Mid-Sep–early Nov, nights',
+    'https://www.kreepyhollowhauntedattraction.com/information',
+    'Kreepy Hollow directions page + SC Haunted Houses listing',
+    ARRAY['halloween','haunt','hayride','trail','seasonal','night']::text[],
+    32, 42, 55,
+    9, true
+  )
+on conflict (slug) do update set
+  name = excluded.name,
+  kind = excluded.kind,
+  badge = excluded.badge,
+  lat = excluded.lat,
+  lng = excluded.lng,
+  city = excluded.city,
+  county = excluded.county,
+  one_liner = excluded.one_liner,
+  why_this_weekend = excluded.why_this_weekend,
+  hours = excluded.hours,
+  season_start = excluded.season_start,
+  season_end = excluded.season_end,
+  season_label = excluded.season_label,
+  website = excluded.website,
+  source = excluded.source,
+  tags = excluded.tags,
+  drive_minutes_hartsville = excluded.drive_minutes_hartsville,
+  drive_minutes_florence = excluded.drive_minutes_florence,
+  drive_minutes_cheraw = excluded.drive_minutes_cheraw,
+  fall_weight = excluded.fall_weight,
+  published = excluded.published;
