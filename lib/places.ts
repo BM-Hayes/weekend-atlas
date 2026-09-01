@@ -1,10 +1,16 @@
 import type { HubId, Place } from "./types";
 import placesData from "@/data/places.json";
-import { isOpenThisWeekend, inSeason } from "./weekend";
+import { FALL_2026, isOpenThisWeekend } from "./weekend";
 
 export const PLACES = placesData as Place[];
 
 export type ViewMode = "weekend" | "fall";
+
+function inFallCatalog(place: Place): boolean {
+  if (place.fallWeight < 4) return false;
+  if (!place.season) return true;
+  return place.season.start <= FALL_2026.end && place.season.end >= FALL_2026.start;
+}
 
 export function filterPlaces(
   places: Place[],
@@ -13,7 +19,7 @@ export function filterPlaces(
   return places
     .filter((p) => {
       if (opts.mode === "weekend") return isOpenThisWeekend(p);
-      return inSeason(p) && p.fallWeight >= 4;
+      return inFallCatalog(p);
     })
     .filter((p) => (opts.kinds?.length ? opts.kinds.includes(p.kind) : true))
     .filter((p) =>
