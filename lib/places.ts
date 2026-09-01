@@ -6,6 +6,12 @@ export const PLACES = placesData as Place[];
 
 export type ViewMode = "weekend" | "fall";
 
+const HAUNT_TAGS = new Set(["halloween", "haunt"]);
+
+export function isHaunt(place: Place): boolean {
+  return (place.tags ?? []).some((t) => HAUNT_TAGS.has(t));
+}
+
 function inFallCatalog(place: Place): boolean {
   if (place.fallWeight < 4) return false;
   if (!place.season) return true;
@@ -14,13 +20,20 @@ function inFallCatalog(place: Place): boolean {
 
 export function filterPlaces(
   places: Place[],
-  opts: { mode: ViewMode; hub: HubId; kinds?: Place["kind"][]; maxMinutes?: number },
+  opts: {
+    mode: ViewMode;
+    hub: HubId;
+    kinds?: Place["kind"][];
+    maxMinutes?: number;
+    hauntsOnly?: boolean;
+  },
 ): Place[] {
   return places
     .filter((p) => {
       if (opts.mode === "weekend") return isOpenThisWeekend(p);
       return inFallCatalog(p);
     })
+    .filter((p) => (opts.hauntsOnly ? isHaunt(p) : true))
     .filter((p) => (opts.kinds?.length ? opts.kinds.includes(p.kind) : true))
     .filter((p) =>
       opts.maxMinutes ? p.driveMinutes[opts.hub] <= opts.maxMinutes : true,

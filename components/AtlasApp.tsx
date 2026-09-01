@@ -22,11 +22,12 @@ export function AtlasApp({
   const [hub, setHub] = useState<HubId>("hartsville");
   const [mode, setMode] = useState<ViewMode>("weekend");
   const [cap, setCap] = useState<(typeof DRIVE_CAPS)[number]>(50);
+  const [hauntsOnly, setHauntsOnly] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const places = useMemo(
-    () => filterPlaces(listings, { mode, hub, maxMinutes: cap }),
-    [listings, mode, hub, cap],
+    () => filterPlaces(listings, { mode, hub, maxMinutes: cap, hauntsOnly }),
+    [listings, mode, hub, cap, hauntsOnly],
   );
 
   const selected: Place | undefined =
@@ -100,6 +101,20 @@ export function AtlasApp({
               }`}
             >
               Fall season
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setHauntsOnly((v) => !v);
+                if (!hauntsOnly) setMode("fall");
+              }}
+              className={`border px-3 py-1 text-sm shadow-sm ${
+                hauntsOnly
+                  ? "border-[#1c1914] bg-[#1c1914] text-[#f3ead8]"
+                  : "border-[#cbbd9e] bg-[#f7f0e0]"
+              }`}
+            >
+              Haunts
             </button>
             <label className="border border-[#cbbd9e] bg-[#f7f0e0] px-2 py-1 text-sm shadow-sm">
               Within{" "}

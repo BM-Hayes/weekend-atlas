@@ -1,6 +1,5 @@
 -- Weekend Atlas · Halloween 2026 seed (Pee Dee haunts)
 -- Run in Supabase SQL editor. Safe to re-run (upsert on slug).
--- Live map reads published listings. Repo seed is backup only.
 
 insert into public.listings (
   slug, name, kind, badge, lat, lng, city, county, region,
@@ -21,7 +20,7 @@ insert into public.listings (
     'pee-dee',
     'House from the 1880s, two-mile hayride, then a swamp walk. One ticket, three pieces.',
     '2026 season: Sep 11–12, 18–19, 25–26, then every Fri–Sat in October, plus Oct 25 and Oct 30–31. Not open the first weekend of September.',
-    '[{"days":["fri","sat"],"open":"19:00","close":"01:00","note":"Gates typically 7p–1a; Oct 25 7p–10p; Oct 31 7p–12a"},{"days":["sun"],"open":"19:00","close":"22:00","note":"Sunday nights only on posted dates (Oct 25)"}]'::jsonb,
+    '[{"days":["fri","sat"],"open":"19:00","close":"01:00"},{"days":["sun"],"open":"19:00","close":"22:00","note":"Sunday nights only on posted dates"}]'::jsonb,
     '2026-09-11'::date,
     '2026-10-31'::date,
     'Sep 11–Oct 31, 2026 · Fri–Sat nights',
@@ -43,7 +42,7 @@ insert into public.listings (
     'pee-dee',
     'Bus ride, two-story house, then a hayride through Lucknow Bottom. Woods west of Bishopville.',
     'Usually Fri–Sat nights from mid-September through early November. 2026 nights still move — use the operator page before you drive.',
-    '[{"days":["fri","sat"],"open":"19:30","close":"00:30","note":"Typical Fri–Sat 7:30p–12:30a"},{"days":["sun"],"open":"19:30","close":"22:30","note":"Sunday nights when posted"}]'::jsonb,
+    '[{"days":["fri","sat"],"open":"19:30","close":"00:30"},{"days":["sun"],"open":"19:30","close":"22:30","note":"Sunday nights when posted"}]'::jsonb,
     '2026-09-12'::date,
     '2026-11-01'::date,
     'Mid-Sep–early Nov, nights',
@@ -52,6 +51,50 @@ insert into public.listings (
     ARRAY['halloween','haunt','hayride','trail','seasonal','night']::text[],
     32, 42, 55,
     9, true
+  ),
+  (
+    'hollow-acres',
+    'Hollow Acres',
+    'event',
+    'community',
+    34.4964,
+    -79.1142,
+    'Fairmont',
+    'Robeson',
+    'pee-dee',
+    'Bus drop to a trail, then scenes in the field. Just over the NC line from Dillon.',
+    '2026 opening night Sep 25. Fri–Sat 7:30p–11:30p after that. From Florence it is an east-side night drive.',
+    '[{"days":["fri","sat"],"open":"19:30","close":"23:30"}]'::jsonb,
+    '2026-09-25'::date,
+    '2026-11-01'::date,
+    'Opens Sep 25, 2026 · Fri–Sat nights',
+    'https://www.northcarolinahauntedhouses.com/halloween/hollow-acres-the-field-of-misfits-nc.html',
+    'NC/SC Haunted Houses 2026 hours + AllEvents opening night',
+    ARRAY['halloween','haunt','trail','seasonal','night']::text[],
+    58, 38, 62,
+    8, true
+  ),
+  (
+    'southern-palmetto-farms',
+    'Southern Palmetto Farms',
+    'farm',
+    'community',
+    33.9842,
+    -79.2218,
+    'Aynor',
+    'Horry',
+    'pee-dee',
+    'Daytime maze and patch. Fright nights are a separate evening trail on the same farm.',
+    'Fall weekends typically late Sep through Halloween. Confirm 2026 fright-night dates on the farm page before a night drive.',
+    '[{"days":["sat","sun"],"open":"10:00","close":"18:00"}]'::jsonb,
+    '2026-09-26'::date,
+    '2026-10-31'::date,
+    'Late Sep–Halloween, weekends',
+    'https://www.southernpalmettofarms.com',
+    'southernpalmettofarms.com + prior-year fright night listings',
+    ARRAY['halloween','farm','maze','kids','seasonal']::text[],
+    72, 42, 88,
+    7, true
   )
 on conflict (slug) do update set
   name = excluded.name,
