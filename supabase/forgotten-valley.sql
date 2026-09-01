@@ -1,5 +1,4 @@
 -- Forgotten Valley · Hartsville 2026
--- Community listing from operator dates. No official site yet.
 
 insert into public.listings (
   slug, name, kind, badge, lat, lng, city, county, region,
@@ -18,13 +17,13 @@ insert into public.listings (
   'Darlington',
   'pee-dee',
   'New Hartsville haunt. Pond Hollow Road. First season.',
-  'Fri–Sat nights Sep 25–Oct 31, 7:30p–midnight. New operator — confirm the night on their Facebook before you roll.',
+  'Fri–Sat nights Sep 25–Oct 31, 7:30p–midnight. Confirm the night on their Facebook before you roll.',
   '[{"days":["fri","sat"],"open":"19:30","close":"00:00"}]'::jsonb,
   '2026-09-25'::date,
   '2026-10-31'::date,
   'Sep 25–Oct 31 · Fri–Sat 7:30p–12a',
-  null,
-  'Operator dates via community submit, Sep 1 2026. Facebook page live; no standalone site.',
+  'https://www.facebook.com/profile.php?id=61590408989706',
+  'Operator Facebook page + dates via community submit, Sep 1 2026.',
   ARRAY['halloween','haunt','night']::text[],
   10, 28, 32,
   9, true
