@@ -23,11 +23,19 @@ export function AtlasApp({
   const [mode, setMode] = useState<ViewMode>("weekend");
   const [cap, setCap] = useState<(typeof DRIVE_CAPS)[number]>(50);
   const [hauntsOnly, setHauntsOnly] = useState(false);
+  const [antiquesOnly, setAntiquesOnly] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const places = useMemo(
-    () => filterPlaces(listings, { mode, hub, maxMinutes: cap, hauntsOnly }),
-    [listings, mode, hub, cap, hauntsOnly],
+    () =>
+      filterPlaces(listings, {
+        mode,
+        hub,
+        maxMinutes: cap,
+        hauntsOnly,
+        antiquesOnly,
+      }),
+    [listings, mode, hub, cap, hauntsOnly, antiquesOnly],
   );
 
   const selected: Place | undefined =
@@ -106,7 +114,10 @@ export function AtlasApp({
               type="button"
               onClick={() => {
                 setHauntsOnly((v) => !v);
-                if (!hauntsOnly) setMode("fall");
+                if (!hauntsOnly) {
+                  setAntiquesOnly(false);
+                  setMode("fall");
+                }
               }}
               className={`border px-3 py-1 text-sm shadow-sm ${
                 hauntsOnly
@@ -115,6 +126,20 @@ export function AtlasApp({
               }`}
             >
               Haunts
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setAntiquesOnly((v) => !v);
+                if (!antiquesOnly) setHauntsOnly(false);
+              }}
+              className={`border px-3 py-1 text-sm shadow-sm ${
+                antiquesOnly
+                  ? "border-[#1c1914] bg-[#1c1914] text-[#f3ead8]"
+                  : "border-[#cbbd9e] bg-[#f7f0e0]"
+              }`}
+            >
+              Antiques
             </button>
             <label className="border border-[#cbbd9e] bg-[#f7f0e0] px-2 py-1 text-sm shadow-sm">
               Within{" "}
