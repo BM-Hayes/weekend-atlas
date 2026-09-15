@@ -6,41 +6,37 @@ import { AtlasMap } from "./AtlasMap";
 import { PlaceList } from "./PlaceList";
 import { PlacePanel } from "./PlacePanel";
 import { HUB_ORDER, HUBS } from "@/lib/hubs";
-import { filterPlaces, type ViewMode } from "@/lib/places";
-import { formatWeekendLabel } from "@/lib/weekend";
+import { filterListings, listingToPlace } from "@/lib/atlasData";
+import type { DriveTimeCap, ListingCategory } from "@/types/atlas";
 import type { HubId, Place } from "@/lib/types";
 
-const DRIVE_CAPS = [20, 35, 50, 90] as const;
+const DRIVE_CAPS: DriveTimeCap[] = [20, 35, 50, 90];
+const CATEGORIES: { id: ListingCategory; label: string }[] = [
+  { id: "all", label: "All" },
+  { id: "haunts", label: "Haunts" },
+  { id: "antiques", label: "Antiques" },
+  { id: "parks", label: "Parks" },
+  { id: "farms", label: "Farms" },
+];
 
 export function AtlasApp({
-  listings,
   mapboxToken = "",
 }: {
-  listings: Place[];
+  listings?: Place[];
   mapboxToken?: string;
 }) {
   const [hub, setHub] = useState<HubId>("hartsville");
-  const [mode, setMode] = useState<ViewMode>("weekend");
-  const [cap, setCap] = useState<(typeof DRIVE_CAPS)[number]>(50);
-  const [hauntsOnly, setHauntsOnly] = useState(false);
-  const [antiquesOnly, setAntiquesOnly] = useState(false);
+  const [cap, setCap] = useState<DriveTimeCap>(50);
+  const [category, setCategory] = useState<ListingCategory>("all");
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const places = useMemo(
     () =>
-      filterPlaces(listings, {
-        mode,
-        hub,
-        maxMinutes: cap,
-        hauntsOnly,
-        antiquesOnly,
-      }),
-    [listings, mode, hub, cap, hauntsOnly, antiquesOnly],
+      filterListings({ hub, maxDriveTime: cap, category }).map(listingToPlace),
+    [hub, cap, category],
   );
 
-  const selected: Place | undefined =
-    places.find((p) => p.id === selectedId) ??
-    listings.find((p) => p.id === selectedId);
+  const selected = places.find((p) => p.id === selectedId);
 
   return (
     <div className="atlas-shell">
@@ -74,8 +70,7 @@ export function AtlasApp({
 
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#cbbd9e] bg-[#efe4c8] px-4 py-2 text-sm">
         <p className="m-0 text-[#3f3a32]">
-          Holding year 2026. Pee Dee Fall seed is on the map. Listings table is
-          live; review queue stays manual.
+          Holding year 2026. Pins live in the repo. No database.
         </p>
         <p className="m-0 text-xs uppercase tracking-[0.12em] text-[#6b6356]">
           Tool, not a directory · no tickets · no phone · no chat ·{" "}
@@ -88,66 +83,27 @@ export function AtlasApp({
       <div className="grid min-h-0 grid-cols-1 md:grid-cols-[1fr_320px]">
         <div className="relative min-h-0">
           <div className="absolute left-3 top-3 z-30 flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => setMode("weekend")}
-              className={`border px-3 py-1 text-sm shadow-sm ${
-                mode === "weekend"
-                  ? "border-[#1c1914] bg-[#1c1914] text-[#f3ead8]"
-                  : "border-[#cbbd9e] bg-[#f7f0e0]"
-              }`}
-            >
-              Open this weekend · {formatWeekendLabel()}
-            </button>
-            <button
-              type="button"
-              onClick={() => setMode("fall")}
-              className={`border px-3 py-1 text-sm shadow-sm ${
-                mode === "fall"
-                  ? "border-[#1c1914] bg-[#1c1914] text-[#f3ead8]"
-                  : "border-[#cbbd9e] bg-[#f7f0e0]"
-              }`}
-            >
-              Fall season
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setHauntsOnly((v) => !v);
-                if (!hauntsOnly) {
-                  setAntiquesOnly(false);
-                  setMode("fall");
-                }
-              }}
-              className={`border px-3 py-1 text-sm shadow-sm ${
-                hauntsOnly
-                  ? "border-[#1c1914] bg-[#1c1914] text-[#f3ead8]"
-                  : "border-[#cbbd9e] bg-[#f7f0e0]"
-              }`}
-            >
-              Haunts
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setAntiquesOnly((v) => !v);
-                if (!antiquesOnly) setHauntsOnly(false);
-              }}
-              className={`border px-3 py-1 text-sm shadow-sm ${
-                antiquesOnly
-                  ? "border-[#1c1914] bg-[#1c1914] text-[#f3ead8]"
-                  : "border-[#cbbd9e] bg-[#f7f0e0]"
-              }`}
-            >
-              Antiques
-            </button>
+            {CATEGORIES.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => setCategory(c.id)}
+                className={`border px-3 py-1 text-sm shadow-sm ${
+                  category === c.id
+                    ? "border-[#1c1914] bg-[#1c1914] text-[#f3ead8]"
+                    : "border-[#cbbd9e] bg-[#f7f0e0]"
+                }`}
+              >
+                {c.label}
+              </button>
+            ))}
             <label className="border border-[#cbbd9e] bg-[#f7f0e0] px-2 py-1 text-sm shadow-sm">
               Within{" "}
               <select
                 className="bg-transparent"
                 value={cap}
                 onChange={(e) =>
-                  setCap(Number(e.target.value) as (typeof DRIVE_CAPS)[number])
+                  setCap(Number(e.target.value) as DriveTimeCap)
                 }
               >
                 {DRIVE_CAPS.map((n) => (

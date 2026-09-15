@@ -1,0 +1,253 @@
+[
+  {
+    "id": "scream-acres",
+    "title": "Scream Acres",
+    "category": "haunts",
+    "season": "fall",
+    "tagline": "1880s house, two-mile hayride, then a swamp walk. Bishopville.",
+    "coordinates": [-80.2689, 34.2148],
+    "city": "Bishopville",
+    "driveTimes": { "hartsville": 26, "florence": 36, "cheraw": 50 },
+    "link": "https://screamacreshauntedhouse.com/"
+  },
+  {
+    "id": "kreepy-hollow",
+    "title": "Kreepy Hollow",
+    "category": "haunts",
+    "season": "fall",
+    "tagline": "Bus ride, two-story house, hayride through Lucknow Bottom.",
+    "coordinates": [-80.3214, 34.1639],
+    "city": "Bishopville",
+    "driveTimes": { "hartsville": 32, "florence": 42, "cheraw": 55 },
+    "link": "https://www.kreepyhollowhauntedattraction.com/information"
+  },
+  {
+    "id": "hollow-acres",
+    "title": "Hollow Acres",
+    "category": "haunts",
+    "season": "fall",
+    "tagline": "Bus drop to a trail in the field. Just over the NC line from Dillon.",
+    "coordinates": [-79.1142, 34.4964],
+    "city": "Fairmont",
+    "driveTimes": { "hartsville": 58, "florence": 38, "cheraw": 62 },
+    "link": "https://www.northcarolinahauntedhouses.com/halloween/hollow-acres-the-field-of-misfits-nc.html"
+  },
+  {
+    "id": "southern-palmetto-farms",
+    "title": "Southern Palmetto Farms",
+    "category": "farms",
+    "season": "fall",
+    "tagline": "Daytime maze and patch in Aynor. Fright nights when posted.",
+    "coordinates": [-79.2218, 33.9842],
+    "city": "Aynor",
+    "driveTimes": { "hartsville": 72, "florence": 42, "cheraw": 88 },
+    "link": "https://www.southernpalmettofarms.com"
+  },
+  {
+    "id": "dark-castle",
+    "title": "Dark Castle",
+    "category": "haunts",
+    "season": "fall",
+    "tagline": "Indoor haunt, outdoor trail, and a zombie yard in Elgin.",
+    "coordinates": [-80.7938, 34.1706],
+    "city": "Elgin",
+    "driveTimes": { "hartsville": 62, "florence": 74, "cheraw": 78 },
+    "link": "https://darkcastlesc.com/"
+  },
+  {
+    "id": "aberdeen-fear-factory",
+    "title": "Aberdeen Fear Factory",
+    "category": "haunts",
+    "season": "fall",
+    "tagline": "Indoor haunt on NC-211. House, 3D rooms, zombie paintball.",
+    "coordinates": [-79.3763, 35.0993],
+    "city": "Aberdeen",
+    "driveTimes": { "hartsville": 55, "florence": 68, "cheraw": 38 },
+    "link": "https://aberdeenfearfactory.com/"
+  },
+  {
+    "id": "standing-pines",
+    "title": "Standing Pines spooky weekends",
+    "category": "farms",
+    "season": "fall",
+    "tagline": "Campground pumpkin trail and non-scary trick-or-treat. Hartsville.",
+    "coordinates": [-80.0186, 34.4218],
+    "city": "Hartsville",
+    "driveTimes": { "hartsville": 12, "florence": 32, "cheraw": 28 },
+    "link": "https://campstandingpines.com/"
+  },
+  {
+    "id": "forgotten-valley",
+    "title": "Forgotten Valley",
+    "category": "haunts",
+    "season": "fall",
+    "tagline": "New Hartsville haunt on Pond Hollow Road. First season.",
+    "coordinates": [-80.0518, 34.3524],
+    "city": "Hartsville",
+    "driveTimes": { "hartsville": 10, "florence": 28, "cheraw": 32 },
+    "link": "https://www.facebook.com/profile.php?id=61590408989706"
+  },
+  {
+    "id": "pee-dee-haunted-warehouse",
+    "title": "Pee Dee Haunted Warehouse",
+    "category": "haunts",
+    "season": "fall",
+    "tagline": "Indoor warehouse haunt on the Pee Dee State Farmers Market grounds.",
+    "coordinates": [-79.8164, 34.2178],
+    "city": "Florence",
+    "driveTimes": { "hartsville": 24, "florence": 6, "cheraw": 40 },
+    "link": "https://www.facebook.com/peedeehauntedwarehouse"
+  },
+  {
+    "id": "floydale-haunted-trail",
+    "title": "Floydale Haunted Trail",
+    "category": "haunts",
+    "season": "fall",
+    "tagline": "Woods trail on SC-57 north of Dillon.",
+    "coordinates": [-79.3412, 34.3555],
+    "city": "Floydale",
+    "driveTimes": { "hartsville": 52, "florence": 32, "cheraw": 48 },
+    "link": "https://www.facebook.com/p/Floydale-Haunted-Trail-61573226745752/"
+  },
+  {
+    "id": "fleur-de-lis",
+    "title": "Fleur De Lis Antique Mall",
+    "category": "antiques",
+    "season": "year-round",
+    "tagline": "Multi-vendor mall on Bobo Newsom. Furniture and rotating booths.",
+    "coordinates": [-80.0872, 34.3746],
+    "city": "Hartsville",
+    "driveTimes": { "hartsville": 8, "florence": 28, "cheraw": 32 },
+    "link": "https://visithartsvillesc.com/listings/shop/shop-antiques/"
+  },
+  {
+    "id": "palmetto-peddlers",
+    "title": "Palmetto Peddlers",
+    "category": "antiques",
+    "season": "year-round",
+    "tagline": "Large climate-controlled mall near I-95 / I-20. 150+ booths.",
+    "coordinates": [-79.8089, 34.2158],
+    "city": "Florence",
+    "driveTimes": { "hartsville": 26, "florence": 8, "cheraw": 42 },
+    "link": "https://www.palmettopeddlers.com/"
+  },
+  {
+    "id": "thieves-market",
+    "title": "Thieves Market",
+    "category": "antiques",
+    "season": "year-round",
+    "tagline": "Warehouse mall on E Palmetto. Mixed antiques and odd lots.",
+    "coordinates": [-79.7348, 34.1956],
+    "city": "Florence",
+    "driveTimes": { "hartsville": 28, "florence": 10, "cheraw": 40 }
+  },
+  {
+    "id": "carolina-trading-post",
+    "title": "Carolina Trading Post",
+    "category": "antiques",
+    "season": "year-round",
+    "tagline": "Antique mall on Second Loop. Clothes, furniture, booths.",
+    "coordinates": [-79.7851, 34.1654],
+    "city": "Florence",
+    "driveTimes": { "hartsville": 32, "florence": 12, "cheraw": 48 },
+    "link": "https://www.carolinatradingpostsc.com/"
+  },
+  {
+    "id": "miztures",
+    "title": "Miztures Antiques",
+    "category": "antiques",
+    "season": "year-round",
+    "tagline": "Downtown Cheraw booths on 2nd Street.",
+    "coordinates": [-79.8831, 34.6974],
+    "city": "Cheraw",
+    "driveTimes": { "hartsville": 32, "florence": 42, "cheraw": 4 }
+  },
+  {
+    "id": "cheraw-state-park",
+    "title": "Cheraw State Park",
+    "category": "parks",
+    "season": "year-round",
+    "tagline": "Oldest SC state park. Longleaf, Lake Juniper, turkey oak going gold.",
+    "coordinates": [-79.9261, 34.6442],
+    "city": "Cheraw",
+    "driveTimes": { "hartsville": 28, "florence": 48, "cheraw": 8 },
+    "link": "https://southcarolinaparks.com/cheraw"
+  },
+  {
+    "id": "kalmia-gardens",
+    "title": "Kalmia Gardens",
+    "category": "parks",
+    "season": "year-round",
+    "tagline": "35 acres on Black Creek. Quiet loop if you only have an hour.",
+    "coordinates": [-80.0936, 34.3689],
+    "city": "Hartsville",
+    "driveTimes": { "hartsville": 6, "florence": 28, "cheraw": 32 },
+    "link": "https://www.kalmiagardens.org"
+  },
+  {
+    "id": "lynches-river-park",
+    "title": "Lynches River County Park",
+    "category": "parks",
+    "season": "year-round",
+    "tagline": "Canopy walk over cypress. 676 acres between Florence and Lake City.",
+    "coordinates": [-79.8214, 33.9736],
+    "city": "Coward",
+    "driveTimes": { "hartsville": 42, "florence": 22, "cheraw": 62 },
+    "link": "https://www.lynchesriverpark.com"
+  },
+  {
+    "id": "mcleod-farms",
+    "title": "McLeod Farms",
+    "category": "farms",
+    "season": "fall",
+    "tagline": "Working peach farm. Fall means corn maze, wagon, u-pick pumpkins.",
+    "coordinates": [-80.2414, 34.4347],
+    "city": "McBee",
+    "driveTimes": { "hartsville": 16, "florence": 38, "cheraw": 38 },
+    "link": "https://www.macspride.com/fall"
+  },
+  {
+    "id": "carolina-sandhills-nwr",
+    "title": "Carolina Sandhills NWR",
+    "category": "parks",
+    "season": "year-round",
+    "tagline": "Longleaf and red-cockaded woodpeckers. Auto tour plus short walks.",
+    "coordinates": [-80.2267, 34.5192],
+    "city": "McBee",
+    "driveTimes": { "hartsville": 22, "florence": 44, "cheraw": 28 },
+    "link": "https://www.fws.gov/refuge/carolina-sandhills"
+  },
+  {
+    "id": "lee-state-park",
+    "title": "Lee State Park",
+    "category": "parks",
+    "season": "year-round",
+    "tagline": "Floodplain forest on the Lynches. Horses and hikers share the flats.",
+    "coordinates": [-80.1831, 34.2017],
+    "city": "Bishopville",
+    "driveTimes": { "hartsville": 22, "florence": 32, "cheraw": 48 },
+    "link": "https://southcarolinaparks.com/lee"
+  },
+  {
+    "id": "woods-bay",
+    "title": "Woods Bay State Park",
+    "category": "parks",
+    "season": "year-round",
+    "tagline": "Carolina bay boardwalk. Short, strange, worth the spur.",
+    "coordinates": [-80.0256, 33.9464],
+    "city": "Olanta",
+    "driveTimes": { "hartsville": 36, "florence": 28, "cheraw": 58 },
+    "link": "https://southcarolinaparks.com/woods-bay"
+  },
+  {
+    "id": "little-pee-dee-sp",
+    "title": "Little Pee Dee State Park",
+    "category": "parks",
+    "season": "year-round",
+    "tagline": "54-acre lake plus the Little Pee Dee. Paddle if the wind is down.",
+    "coordinates": [-79.2717, 34.3278],
+    "city": "Dillon",
+    "driveTimes": { "hartsville": 58, "florence": 36, "cheraw": 62 },
+    "link": "https://southcarolinaparks.com/little-pee-dee"
+  }
+]
