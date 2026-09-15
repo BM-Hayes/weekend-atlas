@@ -1,57 +1,29 @@
 import type { HubId, Place } from "./types";
-import placesData from "@/data/places.json";
-import { FALL_2026, isOpenThisWeekend } from "./weekend";
+import {
+  filterListings,
+  getAllListings,
+  listingToPlace,
+} from "./atlasData";
+import type { DriveTimeCap, ListingCategory } from "@/types/atlas";
 
-export const PLACES = placesData as Place[];
+export const PLACES: Place[] = getAllListings().map(listingToPlace);
 
 export type ViewMode = "weekend" | "fall";
 
-const HAUNT_TAGS = new Set(["halloween", "haunt"]);
-const ANTIQUE_TAGS = new Set(["antique", "thrift", "vintage"]);
-
-export function isHaunt(place: Place): boolean {
-  return (place.tags ?? []).some((t) => HAUNT_TAGS.has(t));
-}
-
-export function isAntique(place: Place): boolean {
-  return (place.tags ?? []).some((t) => ANTIQUE_TAGS.has(t));
-}
-
-function inFallCatalog(place: Place): boolean {
-  if (place.fallWeight < 4) return false;
-  if (!place.season) return true;
-  return place.season.start <= FALL_2026.end && place.season.end >= FALL_2026.start;
-}
-
 export function filterPlaces(
-  places: Place[],
+  _places: Place[],
   opts: {
-    mode: ViewMode;
+    mode?: ViewMode;
     hub: HubId;
-    kinds?: Place["kind"][];
     maxMinutes?: number;
-    hauntsOnly?: boolean;
-    antiquesOnly?: boolean;
+    category?: ListingCategory;
   },
 ): Place[] {
-  return places
-    .filter((p) => {
-      if (opts.mode === "weekend") return isOpenThisWeekend(p);
-      return inFallCatalog(p);
-    })
-    .filter((p) => (opts.hauntsOnly ? isHaunt(p) : true))
-    .filter((p) => (opts.antiquesOnly ? isAntique(p) : true))
-    .filter((p) => (opts.kinds?.length ? opts.kinds.includes(p.kind) : true))
-    .filter((p) =>
-      opts.maxMinutes ? p.driveMinutes[opts.hub] <= opts.maxMinutes : true,
-    )
-    .sort((a, b) => {
-      const da = a.driveMinutes[opts.hub] - b.driveMinutes[opts.hub];
-      if (da !== 0) return da;
-      return b.fallWeight - a.fallWeight;
-    });
-}
-
-export function getPlace(id: string): Place | undefined {
-  return PLACES.find((p) => p.id === id);
+  const cap = (opts.maxMinutes ?? 90) as DriveTimeCap;
+  const category = opts.category ?? "all";
+  return filterListings({
+    hub: opts.hub,
+    maxDriveTime: cap === 20 || cap === 35 || cap === 50 || cap === 90 ? cap : 90,
+    category,
+  }).map(listingToPlace);
 }

@@ -22,14 +22,14 @@ export default function AboutPage() {
           Official pages stay on the operator’s own site.
         </p>
         <p>
-          2026 is the holding year. The map reads the <code>listings</code>{" "}
-          table in Supabase. Pins are a seed set — parks, farms, markets, dated
-          fall events — marked operator, verified, community, or unverified.
+          2026 is the holding year. Pins live in{" "}
+          <code>data/listings.json</code> in the repo. No database. Drive times
+          from the three hubs are stored on each row and filtered in the
+          browser.
         </p>
         <p>
-          The review queue exists so people can suggest a place. Promotion from
-          queue to map is manual until the map path is boringly stable. Then it
-          gets automated.
+          The review queue is a file on disk. Promotion onto the map is a JSON
+          edit and a deploy.
         </p>
         <p>Pee Dee Fall first. Other regions later, if this one earns it.</p>
       </div>

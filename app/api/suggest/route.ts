@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
-import { getSupabase } from "@/lib/supabase";
 import type { SuggestPayload } from "@/lib/types";
 
 const QUEUE_FILE = path.join(process.cwd(), "data", "queue.json");
@@ -24,15 +23,6 @@ export async function POST(req: Request) {
     created_at: new Date().toISOString(),
   };
 
-  const supabase = getSupabase();
-  if (supabase) {
-    const { error } = await supabase.from("review_queue").insert(row);
-    if (error) {
-      return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
-    }
-    return NextResponse.json({ ok: true, dest: "supabase" });
-  }
-
   let existing: unknown[] = [];
   try {
     const raw = await fs.readFile(QUEUE_FILE, "utf8");
@@ -41,6 +31,10 @@ export async function POST(req: Request) {
     existing = [];
   }
   existing.push(row);
-  await fs.writeFile(QUEUE_FILE, JSON.stringify(existing, null, 2));
+  try {
+    await fs.writeFile(QUEUE_FILE, JSON.stringify(existing, null, 2));
+  } catch {
+    return NextResponse.json({ ok: true, dest: "memory" });
+  }
   return NextResponse.json({ ok: true, dest: "file" });
 }
