@@ -249,5 +249,37 @@
     "city": "Dillon",
     "driveTimes": { "hartsville": 58, "florence": 36, "cheraw": 62 },
     "link": "https://southcarolinaparks.com/little-pee-dee"
+  },
+  {
+    "id": "mcarthur-farms",
+    "title": "McArthur Farms",
+    "category": "farms",
+    "season": "fall",
+    "tagline": "Corn maze, scratch bakery, and seasonal market.",
+    "coordinates": [-79.6559, 34.5493],
+    "city": "Bennettsville",
+    "driveTimes": { "hartsville": 40, "florence": 38, "cheraw": 25 },
+    "link": "https://www.mcarthurfarms.com/"
+  },
+  {
+    "id": "dargan-farms",
+    "title": "Dargan Farms",
+    "category": "farms",
+    "season": "fall",
+    "tagline": "Pumpkin patch, farm activities, and family day trips.",
+    "coordinates": [-79.8245, 34.3312],
+    "city": "Darlington",
+    "driveTimes": { "hartsville": 22, "florence": 15, "cheraw": 38 },
+    "link": "https://www.facebook.com/darganfarms"
+  },
+  {
+    "id": "cheraw-historic-district-walk",
+    "title": "Cheraw Historic District Walk",
+    "category": "parks",
+    "season": "year-round",
+    "tagline": "Self-guided walking trail past historic homes and gardens.",
+    "coordinates": [-79.8845, 34.6974],
+    "city": "Cheraw",
+    "driveTimes": { "hartsville": 35, "florence": 50, "cheraw": 5 }
   }
 ]
