@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "queue:review": "node scripts/approve-queue.mjs"
   },
   "dependencies": {
     "mapbox-gl": "^3.14.0",

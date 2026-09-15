@@ -28,3 +28,14 @@ NEXT_PUBLIC_SITE_URL=https://myweekendatlas.com
 ```
 
 Add or fix a place by editing `data/listings.json` and pushing to `main`.
+
+## Review the suggestion queue
+
+Public `/suggest` appends to `data/queue.json`. Review locally:
+
+```bash
+npm run queue:review
+```
+
+`A` approve · `E` edit · `D` reject · `S` skip. Approve writes estimated drive times from Hartsville, Florence, and Cheraw into `data/listings.json` and drops the row from the queue. Then commit and push `main`.
+
