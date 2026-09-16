@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { placeCategory } from "./Badge";
 import { HUBS, PEE_DEE_BOUNDS } from "@/lib/hubs";
 import type { HubId, Place } from "@/lib/types";
 
@@ -19,18 +20,36 @@ function milesToPx(miles: number, w: number) {
   return (miles / lonMiles) * (w - 56);
 }
 
+const CAT_LETTER: Record<string, string> = {
+  haunts: "H",
+  antiques: "A",
+  parks: "P",
+  farms: "F",
+};
+
+function pillHtml(place: Place) {
+  const cat = placeCategory(place);
+  return `<span class="pill-dot"></span><span>${CAT_LETTER[cat] ?? "·"}</span>`;
+}
+
+function hubHtml() {
+  return `<span class="hub-pulse"></span><span class="hub-core"></span><span class="hub-needle"></span>`;
+}
+
 export function AtlasMap({
   places,
   hub,
   selectedId,
   onSelect,
   mapboxToken = "",
+  active = true,
 }: {
   places: Place[];
   hub: HubId;
   selectedId: string | null;
   onSelect: (id: string) => void;
   mapboxToken?: string;
+  active?: boolean;
 }) {
   const wrap = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 800, h: 700 });
@@ -44,7 +63,7 @@ export function AtlasMap({
     ro.observe(el);
     setSize({ w: el.clientWidth, h: el.clientHeight });
     return () => ro.disconnect();
-  }, []);
+  }, [active]);
 
   const origin = HUBS[hub];
   const originPt = project(origin.lat, origin.lng, size.w, size.h);
@@ -57,7 +76,7 @@ export function AtlasMap({
   return (
     <div
       ref={wrap}
-      className="relative h-full min-h-[320px] overflow-hidden bg-[#d9c9a6]"
+      className="relative h-full min-h-[320px] overflow-hidden bg-[#e7dfcf]"
     >
       {!mapboxToken && (
         <>
@@ -73,10 +92,10 @@ export function AtlasMap({
                 height="12"
                 patternUnits="userSpaceOnUse"
               >
-                <path d="M0 12 L12 0" stroke="#c9b78e" strokeWidth="1" />
+                <path d="M0 12 L12 0" stroke="#d4cbb6" strokeWidth="1" />
               </pattern>
             </defs>
-            <rect width={size.w} height={size.h} fill="#d9c9a6" />
+            <rect width={size.w} height={size.h} fill="#e7dfcf" />
             <rect width={size.w} height={size.h} fill="url(#hatch)" opacity="0.45" />
             {rings.map((r) => {
               const rad = milesToPx(r.miles, size.w);
@@ -87,26 +106,37 @@ export function AtlasMap({
                   cy={originPt.y}
                   r={rad}
                   fill="none"
-                  stroke="#2c4033"
+                  stroke="#3d5c45"
                   strokeOpacity="0.28"
                   strokeDasharray="5 6"
                 />
               );
             })}
           </svg>
+          <div
+            className="hub-mark absolute z-20"
+            style={{ left: originPt.x, top: originPt.y }}
+            aria-label={`${origin.label} hub`}
+          >
+            <span className="hub-pulse" />
+            <span className="hub-core" />
+            <span className="hub-needle" />
+          </div>
           {places.map((p) => {
             const pt = project(p.lat, p.lng, size.w, size.h);
+            const cat = placeCategory(p);
             return (
               <button
                 key={p.id}
                 type="button"
-                className={`pin absolute z-10 ${selectedId === p.id ? "is-active" : ""}`}
-                data-kind={p.kind}
+                className={`map-pill pin absolute z-10 ${selectedId === p.id ? "is-active" : ""}`}
+                data-category={cat}
                 style={{ left: pt.x, top: pt.y }}
                 onClick={() => onSelect(p.id)}
                 aria-label={p.name}
               >
-                <span className="pin-dot block" />
+                <span className="pill-dot" />
+                <span>{CAT_LETTER[cat]}</span>
               </button>
             );
           })}
@@ -119,6 +149,7 @@ export function AtlasMap({
         selectedId={selectedId}
         onSelect={onSelect}
         token={mapboxToken}
+        active={active}
       />
     </div>
   );
@@ -130,12 +161,14 @@ function MapboxOverlay({
   selectedId,
   onSelect,
   token,
+  active,
 }: {
   places: Place[];
   hub: HubId;
   selectedId: string | null;
   onSelect: (id: string) => void;
   token: string;
+  active: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
@@ -184,6 +217,11 @@ function MapboxOverlay({
 
   useEffect(() => {
     if (!token) return;
+    mapRef.current?.resize();
+  }, [token, active]);
+
+  useEffect(() => {
+    if (!token) return;
     let cancelled = false;
 
     (async () => {
@@ -198,15 +236,26 @@ function MapboxOverlay({
       markersRef.current.forEach((m) => m.remove());
       markersRef.current = [];
 
+      const origin = HUBS[hub];
+      const hubEl = document.createElement("div");
+      hubEl.className = "hub-mark";
+      hubEl.innerHTML = hubHtml();
+      hubEl.setAttribute("aria-label", `${origin.label} hub`);
+      const hubMarker = new mapboxgl.Marker({ element: hubEl, anchor: "center" })
+        .setLngLat([origin.lng, origin.lat])
+        .addTo(map);
+      markersRef.current.push(hubMarker);
+
       places.forEach((p) => {
         const el = document.createElement("button");
         el.type = "button";
-        el.className = `map-pin${selectedId === p.id ? " is-active" : ""}`;
-        el.dataset.kind = p.kind;
+        const cat = placeCategory(p);
+        el.className = `map-pill${selectedId === p.id ? " is-active" : ""}`;
+        el.dataset.category = cat;
         el.setAttribute("aria-label", p.name);
-        el.innerHTML = `<span class="pin-dot"></span>`;
+        el.innerHTML = pillHtml(p);
         el.onclick = () => onSelectRef.current(p.id);
-        const marker = new mapboxgl.Marker({ element: el, anchor: "bottom" })
+        const marker = new mapboxgl.Marker({ element: el, anchor: "center" })
           .setLngLat([p.lng, p.lat])
           .addTo(map);
         markersRef.current.push(marker);
@@ -216,7 +265,7 @@ function MapboxOverlay({
     return () => {
       cancelled = true;
     };
-  }, [token, places, selectedId]);
+  }, [token, places, selectedId, hub]);
 
   if (!token) return null;
   return (

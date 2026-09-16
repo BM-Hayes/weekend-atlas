@@ -29,6 +29,7 @@ export function AtlasApp({
   const [cap, setCap] = useState<DriveTimeCap>(50);
   const [category, setCategory] = useState<ListingCategory>("all");
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [mobileView, setMobileView] = useState<"map" | "list">("map");
 
   const places = useMemo(
     () =>
@@ -40,17 +41,19 @@ export function AtlasApp({
 
   return (
     <div className="atlas-shell">
-      <header className="flex flex-wrap items-center justify-between gap-3 border-b border-[#cbbd9e] bg-[#f3ead8] px-4 py-3">
+      <header className="flex flex-wrap items-center justify-between gap-3 bg-[#141b18] px-4 py-3 text-[#fcfbf7]">
         <div>
-          <p className="m-0 text-[11px] uppercase tracking-[0.22em] text-[#6b6356]">
-            myweekendatlas.com
+          <p className="m-0 text-[10px] uppercase tracking-[0.28em] text-[#c4a35a]">
+            Field guide · Pee Dee
           </p>
-          <h1 className="m-0 font-[family-name:var(--font-display-loaded)] text-[28px] leading-none">
+          <h1 className="display m-0 text-[26px] leading-none tracking-tight">
             Weekend Atlas
           </h1>
         </div>
         <div className="flex flex-wrap items-center gap-2 text-sm">
-          <span className="text-[#6b6356]">From</span>
+          <span className="text-[11px] uppercase tracking-[0.14em] text-[#b7b0a4]">
+            From
+          </span>
           {HUB_ORDER.map((id) => (
             <button
               key={id}
@@ -58,8 +61,8 @@ export function AtlasApp({
               onClick={() => setHub(id)}
               className={`border px-3 py-1 ${
                 hub === id
-                  ? "border-[#1c1914] bg-[#1c1914] text-[#f3ead8]"
-                  : "border-[#cbbd9e] bg-transparent"
+                  ? "border-[#c4a35a] bg-[#c4a35a] text-[#141b18]"
+                  : "border-[#3a4540] bg-transparent text-[#ece7dc]"
               }`}
             >
               {HUBS[id].label}
@@ -68,20 +71,24 @@ export function AtlasApp({
         </div>
       </header>
 
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#cbbd9e] bg-[#efe4c8] px-4 py-2 text-sm">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#e4ddd0] bg-[#f3efe6] px-4 py-2 text-sm">
         <p className="m-0 text-[#3f3a32]">
           Holding year 2026. Pins live in the repo. No database.
         </p>
-        <p className="m-0 text-xs uppercase tracking-[0.12em] text-[#6b6356]">
+        <p className="m-0 text-[11px] uppercase tracking-[0.12em] text-[#6b6356]">
           Tool, not a directory · no tickets · no phone · no chat ·{" "}
-          <Link href="/about" className="normal-case tracking-normal underline">
+          <Link href="/about" className="normal-case tracking-normal underline decoration-[#c4a35a]">
             about
           </Link>
         </p>
       </div>
 
-      <div className="grid min-h-0 grid-cols-1 md:grid-cols-[1fr_320px]">
-        <div className="relative min-h-0">
+      <div className="grid min-h-0 grid-cols-1 md:grid-cols-[1fr_340px]">
+        <div
+          className={`relative min-h-0 ${
+            mobileView === "map" ? "block" : "hidden"
+          } md:block`}
+        >
           <div className="absolute left-3 top-3 z-30 flex flex-wrap gap-2">
             {CATEGORIES.map((c) => (
               <button
@@ -90,14 +97,14 @@ export function AtlasApp({
                 onClick={() => setCategory(c.id)}
                 className={`border px-3 py-1 text-sm shadow-sm ${
                   category === c.id
-                    ? "border-[#1c1914] bg-[#1c1914] text-[#f3ead8]"
-                    : "border-[#cbbd9e] bg-[#f7f0e0]"
+                    ? "border-[#141b18] bg-[#141b18] text-[#fcfbf7]"
+                    : "border-[#e4ddd0] bg-[#fcfbf7]/95 text-[#1c1917]"
                 }`}
               >
                 {c.label}
               </button>
             ))}
-            <label className="border border-[#cbbd9e] bg-[#f7f0e0] px-2 py-1 text-sm shadow-sm">
+            <label className="border border-[#e4ddd0] bg-[#fcfbf7]/95 px-2 py-1 text-sm shadow-sm">
               Within{" "}
               <select
                 className="bg-transparent"
@@ -118,21 +125,37 @@ export function AtlasApp({
             places={places}
             hub={hub}
             selectedId={selectedId}
-            onSelect={setSelectedId}
+            onSelect={(id) => {
+              setSelectedId(id);
+            }}
             mapboxToken={mapboxToken}
+            active={mobileView === "map"}
           />
+          {selected ? (
+            <div className="absolute inset-x-3 bottom-20 z-40 overflow-auto rounded-md shadow-lg md:hidden">
+              <PlacePanel
+                place={selected}
+                hub={hub}
+                onClose={() => setSelectedId(null)}
+              />
+            </div>
+          ) : null}
         </div>
-        <div className="flex max-h-[46vh] min-h-0 flex-col overflow-hidden border-t border-[#cbbd9e] bg-[#f7f0e0] md:max-h-none md:border-t-0">
-          <div className="flex items-center justify-between border-b border-[#e0d3b6] px-4 py-2 text-xs uppercase tracking-[0.12em] text-[#6b6356]">
+        <div
+          className={`${
+            mobileView === "list" ? "flex" : "hidden"
+          } min-h-0 flex-col overflow-hidden border-[#e4ddd0] bg-[#f8f5ee] md:flex md:border-l`}
+        >
+          <div className="flex items-center justify-between border-b border-[#e4ddd0] px-4 py-2 text-[11px] uppercase tracking-[0.12em] text-[#6b6356]">
             <span>
               {places.length} place{places.length === 1 ? "" : "s"} · sorted by
               drive
             </span>
-            <Link href="/suggest" className="normal-case tracking-normal underline">
+            <Link href="/suggest" className="normal-case tracking-normal underline decoration-[#c4a35a]">
               Suggest
             </Link>
           </div>
-          <div className="min-h-0 flex-1 overflow-auto">
+          <div className="min-h-0 flex-1 overflow-auto pb-20 md:pb-0">
             {selected ? (
               <PlacePanel
                 place={selected}
@@ -149,6 +172,27 @@ export function AtlasApp({
             )}
           </div>
         </div>
+      </div>
+
+      <div className="mobile-toggle" role="tablist" aria-label="View">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={mobileView === "map"}
+          className={mobileView === "map" ? "is-on" : ""}
+          onClick={() => setMobileView("map")}
+        >
+          Map view
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={mobileView === "list"}
+          className={mobileView === "list" ? "is-on" : ""}
+          onClick={() => setMobileView("list")}
+        >
+          List view
+        </button>
       </div>
     </div>
   );

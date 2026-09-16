@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Source_Serif_4 } from "next/font/google";
+import { Fraunces, Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 
 const display = Fraunces({
@@ -7,9 +7,14 @@ const display = Fraunces({
   variable: "--font-display-loaded",
 });
 
-const body = Source_Serif_4({
+const serif = Source_Serif_4({
   subsets: ["latin"],
-  variable: "--font-sans-loaded",
+  variable: "--font-serif-loaded",
+});
+
+const ui = Source_Sans_3({
+  subsets: ["latin"],
+  variable: "--font-ui-loaded",
 });
 
 export const metadata: Metadata = {
@@ -22,8 +27,7 @@ export const metadata: Metadata = {
     "What is open this weekend in the Pee Dee, and how far is the drive from Hartsville, Florence, or Cheraw.",
   openGraph: {
     title: "Weekend Atlas",
-    description:
-      "Map-first weekend tool for the Pee Dee. Seed year 2026.",
+    description: "Map-first weekend tool for the Pee Dee. Seed year 2026.",
     url: "https://myweekendatlas.com",
     siteName: "Weekend Atlas",
   },
@@ -33,7 +37,10 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} h-full`}>
+    <html
+      lang="en"
+      className={`${display.variable} ${serif.variable} ${ui.variable} h-full`}
+    >
       <body className="min-h-full antialiased">{children}</body>
     </html>
   );
