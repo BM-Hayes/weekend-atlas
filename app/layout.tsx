@@ -17,19 +17,29 @@ const ui = Source_Sans_3({
   variable: "--font-ui-loaded",
 });
 
+const title = "Weekend Atlas | Pee Dee Drive-Time Weekend Guide";
+const description =
+  "Explore curated fall haunts, pumpkin patches, state parks, and antique markets within 20, 35, and 50 minutes of Hartsville, Florence, and Cheraw. Zero ads, zero fluff.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://myweekendatlas.com"),
   title: {
-    default: "Weekend Atlas · Pee Dee",
+    default: title,
     template: "%s · Weekend Atlas",
   },
-  description:
-    "What is open this weekend in the Pee Dee, and how far is the drive from Hartsville, Florence, or Cheraw.",
+  description,
   openGraph: {
-    title: "Weekend Atlas",
-    description: "Map-first weekend tool for the Pee Dee. Seed year 2026.",
+    type: "website",
+    locale: "en_US",
     url: "https://myweekendatlas.com",
     siteName: "Weekend Atlas",
+    title,
+    description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
   },
 };
 
