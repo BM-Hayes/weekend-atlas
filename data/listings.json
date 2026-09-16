@@ -189,11 +189,11 @@
     "title": "Lynches River County Park",
     "category": "parks",
     "season": "year-round",
-    "tagline": "Canopy walk over cypress. 676 acres between Florence and Lake City.",
-    "coordinates": [-79.8214, 33.9736],
+    "tagline": "Canopy walk, river canoe access, and boardwalk trails.",
+    "coordinates": [-79.7915, 33.9961],
     "city": "Coward",
-    "driveTimes": { "hartsville": 42, "florence": 22, "cheraw": 62 },
-    "link": "https://www.lynchesriverpark.com"
+    "driveTimes": { "hartsville": 40, "florence": 20, "cheraw": 60 },
+    "link": "https://lynchesriverpark.com"
   },
   {
     "id": "mcleod-farms",
@@ -222,10 +222,10 @@
     "title": "Lee State Park",
     "category": "parks",
     "season": "year-round",
-    "tagline": "Floodplain forest on the Lynches. Horses and hikers share the flats.",
-    "coordinates": [-80.1831, 34.2017],
+    "tagline": "CCC-built artesian wells, equestrian loops, and quiet cypress trails.",
+    "coordinates": [-80.2562, 34.2045],
     "city": "Bishopville",
-    "driveTimes": { "hartsville": 22, "florence": 32, "cheraw": 48 },
+    "driveTimes": { "hartsville": 25, "florence": 40, "cheraw": 50 },
     "link": "https://southcarolinaparks.com/lee"
   },
   {
@@ -256,10 +256,10 @@
     "category": "farms",
     "season": "fall",
     "tagline": "Corn maze, scratch bakery, and seasonal market.",
-    "coordinates": [-79.6559, 34.5493],
+    "coordinates": [-79.6848, 34.6185],
     "city": "Bennettsville",
-    "driveTimes": { "hartsville": 40, "florence": 38, "cheraw": 25 },
-    "link": "https://www.mcarthurfarms.com/"
+    "driveTimes": { "hartsville": 35, "florence": 35, "cheraw": 15 },
+    "link": "https://mcarthurfarms.com"
   },
   {
     "id": "dargan-farms",
@@ -269,8 +269,8 @@
     "tagline": "Pumpkin patch, farm activities, and family day trips.",
     "coordinates": [-79.8245, 34.3312],
     "city": "Darlington",
-    "driveTimes": { "hartsville": 22, "florence": 15, "cheraw": 38 },
-    "link": "https://www.facebook.com/darganfarms"
+    "driveTimes": { "hartsville": 20, "florence": 15, "cheraw": 40 },
+    "link": "https://darganfarms.com"
   },
   {
     "id": "cheraw-historic-district-walk",
