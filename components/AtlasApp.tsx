@@ -1,12 +1,17 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AtlasMap } from "./AtlasMap";
 import { PlaceList } from "./PlaceList";
 import { PlacePanel } from "./PlacePanel";
 import { HUB_ORDER, HUBS } from "@/lib/hubs";
-import { filterListings, listingToPlace } from "@/lib/atlasData";
+import {
+  filterListings,
+  getAllListings,
+  listingToPlace,
+} from "@/lib/atlasData";
 import type { DriveTimeCap, ListingCategory } from "@/types/atlas";
 import type { HubId, Place } from "@/lib/types";
 
@@ -19,17 +24,120 @@ const CATEGORIES: { id: ListingCategory; label: string }[] = [
   { id: "farms", label: "Farms" },
 ];
 
+const HUB_IDS: HubId[] = ["hartsville", "florence", "cheraw"];
+const CAT_IDS: ListingCategory[] = [
+  "all",
+  "haunts",
+  "antiques",
+  "parks",
+  "farms",
+];
+
+function parseHub(value: string | null): HubId {
+  return HUB_IDS.includes(value as HubId) ? (value as HubId) : "hartsville";
+}
+
+function parseDrive(value: string | null): DriveTimeCap {
+  const n = Number(value);
+  return DRIVE_CAPS.includes(n as DriveTimeCap) ? (n as DriveTimeCap) : 50;
+}
+
+function parseCategory(value: string | null): ListingCategory {
+  return CAT_IDS.includes(value as ListingCategory)
+    ? (value as ListingCategory)
+    : "all";
+}
+
 export function AtlasApp({
   mapboxToken = "",
 }: {
   listings?: Place[];
   mapboxToken?: string;
 }) {
-  const [hub, setHub] = useState<HubId>("hartsville");
-  const [cap, setCap] = useState<DriveTimeCap>(50);
-  const [category, setCategory] = useState<ListingCategory>("all");
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [mobileView, setMobileView] = useState<"map" | "list">("map");
+
+  const listingIds = useMemo(
+    () => new Set(getAllListings().map((item) => item.id)),
+    [],
+  );
+  const allPlaces = useMemo(
+    () => getAllListings().map(listingToPlace),
+    [],
+  );
+
+  const hub = parseHub(searchParams.get("hub"));
+  const cap = parseDrive(searchParams.get("drive"));
+  const category = parseCategory(searchParams.get("category"));
+  const placeParam = searchParams.get("place");
+  const selectedId =
+    placeParam && listingIds.has(placeParam) ? placeParam : null;
+
+  const writeQuery = useCallback(
+    (patch: {
+      hub?: HubId;
+      drive?: DriveTimeCap;
+      category?: ListingCategory;
+      place?: string | null;
+    }) => {
+      const next = new URLSearchParams(searchParams.toString());
+      const nextHub = patch.hub ?? parseHub(next.get("hub"));
+      const nextDrive = patch.drive ?? parseDrive(next.get("drive"));
+      const nextCategory = patch.category ?? parseCategory(next.get("category"));
+      const nextPlace =
+        patch.place !== undefined ? patch.place : next.get("place");
+
+      if (nextHub === "hartsville") next.delete("hub");
+      else next.set("hub", nextHub);
+
+      if (nextDrive === 50) next.delete("drive");
+      else next.set("drive", String(nextDrive));
+
+      if (nextCategory === "all") next.delete("category");
+      else next.set("category", nextCategory);
+
+      if (!nextPlace || !listingIds.has(nextPlace)) next.delete("place");
+      else next.set("place", nextPlace);
+
+      const qs = next.toString();
+      if (qs === searchParams.toString()) return;
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    },
+    [listingIds, pathname, router, searchParams],
+  );
+
+  useEffect(() => {
+    const next = new URLSearchParams(searchParams.toString());
+    let dirty = false;
+    const rawHub = next.get("hub");
+    if (rawHub !== null && !HUB_IDS.includes(rawHub as HubId)) {
+      next.delete("hub");
+      dirty = true;
+    }
+    const rawDrive = next.get("drive");
+    if (
+      rawDrive !== null &&
+      !DRIVE_CAPS.includes(Number(rawDrive) as DriveTimeCap)
+    ) {
+      next.delete("drive");
+      dirty = true;
+    }
+    const rawCat = next.get("category");
+    if (rawCat !== null && !CAT_IDS.includes(rawCat as ListingCategory)) {
+      next.delete("category");
+      dirty = true;
+    }
+    const rawPlace = next.get("place");
+    if (rawPlace !== null && !listingIds.has(rawPlace)) {
+      next.delete("place");
+      dirty = true;
+    }
+    if (!dirty) return;
+    const qs = next.toString();
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  }, [listingIds, pathname, router, searchParams]);
 
   const places = useMemo(
     () =>
@@ -37,7 +145,9 @@ export function AtlasApp({
     [hub, cap, category],
   );
 
-  const selected = places.find((p) => p.id === selectedId);
+  const selected = selectedId
+    ? allPlaces.find((p) => p.id === selectedId)
+    : undefined;
 
   return (
     <div className="atlas-shell">
@@ -58,7 +168,7 @@ export function AtlasApp({
             <button
               key={id}
               type="button"
-              onClick={() => setHub(id)}
+              onClick={() => writeQuery({ hub: id })}
               className={`border px-3 py-1 ${
                 hub === id
                   ? "border-[#c4a35a] bg-[#c4a35a] text-[#141b18]"
@@ -94,7 +204,7 @@ export function AtlasApp({
               <button
                 key={c.id}
                 type="button"
-                onClick={() => setCategory(c.id)}
+                onClick={() => writeQuery({ category: c.id })}
                 className={`border px-3 py-1 text-sm shadow-sm ${
                   category === c.id
                     ? "border-[#141b18] bg-[#141b18] text-[#fcfbf7]"
@@ -110,7 +220,9 @@ export function AtlasApp({
                 className="bg-transparent"
                 value={cap}
                 onChange={(e) =>
-                  setCap(Number(e.target.value) as DriveTimeCap)
+                  writeQuery({
+                    drive: Number(e.target.value) as DriveTimeCap,
+                  })
                 }
               >
                 {DRIVE_CAPS.map((n) => (
@@ -125,9 +237,8 @@ export function AtlasApp({
             places={places}
             hub={hub}
             selectedId={selectedId}
-            onSelect={(id) => {
-              setSelectedId(id);
-            }}
+            selectedPlace={selected ?? null}
+            onSelect={(id) => writeQuery({ place: id })}
             mapboxToken={mapboxToken}
             active={mobileView === "map"}
           />
@@ -136,7 +247,7 @@ export function AtlasApp({
               <PlacePanel
                 place={selected}
                 hub={hub}
-                onClose={() => setSelectedId(null)}
+                onClose={() => writeQuery({ place: null })}
               />
             </div>
           ) : null}
@@ -160,14 +271,14 @@ export function AtlasApp({
               <PlacePanel
                 place={selected}
                 hub={hub}
-                onClose={() => setSelectedId(null)}
+                onClose={() => writeQuery({ place: null })}
               />
             ) : (
               <PlaceList
                 places={places}
                 hub={hub}
                 selectedId={selectedId}
-                onSelect={setSelectedId}
+                onSelect={(id) => writeQuery({ place: id })}
               />
             )}
           </div>

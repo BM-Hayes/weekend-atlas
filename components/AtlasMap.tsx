@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { placeCategory } from "./Badge";
 import { HUBS, PEE_DEE_BOUNDS } from "@/lib/hubs";
 import type { HubId, Place } from "@/lib/types";
@@ -40,6 +40,7 @@ export function AtlasMap({
   places,
   hub,
   selectedId,
+  selectedPlace = null,
   onSelect,
   mapboxToken = "",
   active = true,
@@ -47,12 +48,20 @@ export function AtlasMap({
   places: Place[];
   hub: HubId;
   selectedId: string | null;
+  selectedPlace?: Place | null;
   onSelect: (id: string) => void;
   mapboxToken?: string;
   active?: boolean;
 }) {
   const wrap = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 800, h: 700 });
+
+  const mappedPlaces = useMemo(() => {
+    if (selectedPlace && !places.some((p) => p.id === selectedPlace.id)) {
+      return [...places, selectedPlace];
+    }
+    return places;
+  }, [places, selectedPlace]);
 
   useEffect(() => {
     const el = wrap.current;
@@ -122,7 +131,7 @@ export function AtlasMap({
             <span className="hub-core" />
             <span className="hub-needle" />
           </div>
-          {places.map((p) => {
+          {mappedPlaces.map((p) => {
             const pt = project(p.lat, p.lng, size.w, size.h);
             const cat = placeCategory(p);
             return (
@@ -144,9 +153,10 @@ export function AtlasMap({
       )}
 
       <MapboxOverlay
-        places={places}
+        places={mappedPlaces}
         hub={hub}
         selectedId={selectedId}
+        selectedPlace={selectedPlace}
         onSelect={onSelect}
         token={mapboxToken}
         active={active}
@@ -159,6 +169,7 @@ function MapboxOverlay({
   places,
   hub,
   selectedId,
+  selectedPlace,
   onSelect,
   token,
   active,
@@ -166,6 +177,7 @@ function MapboxOverlay({
   places: Place[];
   hub: HubId;
   selectedId: string | null;
+  selectedPlace: Place | null;
   onSelect: (id: string) => void;
   token: string;
   active: boolean;
@@ -185,11 +197,14 @@ function MapboxOverlay({
       if (cancelled || !ref.current) return;
       mapboxgl.accessToken = token;
       const origin = HUBS[hub];
+      const start = selectedPlace
+        ? { center: [selectedPlace.lng, selectedPlace.lat] as [number, number], zoom: 11 }
+        : { center: [origin.lng, origin.lat] as [number, number], zoom: 8.4 };
       const map = new mapboxgl.Map({
         container: ref.current,
         style: "mapbox://styles/mapbox/light-v11",
-        center: [origin.lng, origin.lat],
-        zoom: 8.4,
+        center: start.center,
+        zoom: start.zoom,
         attributionControl: false,
       });
       map.addControl(new mapboxgl.AttributionControl({ compact: true }));
@@ -206,14 +221,39 @@ function MapboxOverlay({
       mapRef.current?.remove();
       mapRef.current = null;
     };
+    // Map instance is created once per token; later moves use flyTo.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   useEffect(() => {
-    const map = mapRef.current;
-    if (!map) return;
-    const origin = HUBS[hub];
-    map.flyTo({ center: [origin.lng, origin.lat], zoom: 8.4 });
-  }, [hub]);
+    if (!token) return;
+    let cancelled = false;
+    (async () => {
+      let map = mapRef.current;
+      for (let i = 0; i < 50 && !map; i++) {
+        await new Promise((r) => setTimeout(r, 100));
+        map = mapRef.current;
+      }
+      if (cancelled || !map) return;
+      if (selectedPlace) {
+        map.flyTo({
+          center: [selectedPlace.lng, selectedPlace.lat],
+          zoom: 11,
+          essential: true,
+        });
+        return;
+      }
+      const origin = HUBS[hub];
+      map.flyTo({
+        center: [origin.lng, origin.lat],
+        zoom: 8.4,
+        essential: true,
+      });
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [token, hub, selectedPlace]);
 
   useEffect(() => {
     if (!token) return;
